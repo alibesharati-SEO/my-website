@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>علی بشارتی - متخصص سئو و طراح وب</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        @font-face{
+            font-family:'Peyda';
+            src:url('Peyda-Medium.woff2') format('woff2');
+            font-weight:500;
+            font-style:normal;
+            font-display:swap;
+        }
+        @font-face{
+            font-family:'Peyda';
+            src:url('Peyda-Bold.woff2') format('woff2');
+            font-weight:700;
+            font-style:normal;
+            font-display:swap;
+        }
+        @font-face{
+            font-family:'Peyda';
+            src:url('Peyda-ExtraBold.woff2') format('woff2');
+            font-weight:800;
+            font-style:normal;
+            font-display:swap;
+        }
+
+        :root{
+            --ink:#08091a;
+            --ink-soft:#0e1030;
+            --surface:#12142e;
+            --surface-2:#181b3d;
+            --border:rgba(139,124,255,.16);
+            --border-strong:rgba(139,124,255,.35);
+            --violet:#8b5cf6;
+            --violet-2:#c4b5fd;
+            --cyan:#22d3ee;
+            --amber:#ffb020;
+            --pink:#f472b6;
+            --green:#34d399;
+            --blue:#38bdf8;
+            --text-hi:#f6f4ff;
+            --text-mu:#a6a1c9;
+            --grad-brand:linear-gradient(120deg,var(--violet) 0%,var(--cyan) 100%);
+            --grad-warm:linear-gradient(120deg,var(--amber) 0%,var(--pink) 100%);
+        }
+
+        *{ box-sizing:border-box; }
+        html{ scroll-behavior:smooth; }
+        body{
+            font-family:'Peyda', 'Vazirmatn', sans-serif;
+            font-weight:500;
+            background:var(--ink);
+            color:var(--text-hi);
+            overflow-x:hidden;
+        }
+        h1,h2,h3,h4,.font-black,.font-extrabold,.font-bold{ font-family:'Peyda','Vazirmatn',sans-serif; font-weight:800; }
+        .font-semibold{ font-family:'Peyda','Vazirmatn',sans-serif; font-weight:700; }
+        .mono{ font-family:'JetBrains Mono', monospace; }
+
+        ::selection{ background:var(--violet); color:#fff; }
+        a{ text-decoration:none; }
+        :focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; border-radius:6px; }
+
+        .site-shell{ background:var(--ink); }
+        .section-alt{ background:var(--ink-soft); }
+        .text-body{ color:var(--text-mu); }
+        .text-accent{ color:var(--cyan); }
+        .grad-text{
+            background:var(--grad-brand);
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+
+        .section-padding{ padding:96px 20px; position:relative; }
+        @media (max-width:768px){
+            .section-padding{ padding:56px 16px; }
+            .hero-title{ font-size:2.4rem !important; }
+            .hero-sub{ font-size:1.15rem !important; }
+            .desktop-nav{ display:none; }
+            .hamburger{ display:flex; }
+        }
+        @media (min-width:769px){ .hamburger{ display:none; } }
+
+        /* ---------- Navbar ---------- */
+        .navbar{
+            background:rgba(8,9,26,.72);
+            backdrop-filter:blur(14px);
+            -webkit-backdrop-filter:blur(14px);
+            border-bottom:1px solid var(--border);
+        }
+        .nav-link{
+            position:relative;
+            color:var(--text-mu);
+            transition:color .25s ease;
+        }
+        .nav-link::after{
+            content:"";
+            position:absolute; right:0; bottom:-6px;
+            width:0; height:2px;
+            background:var(--grad-brand);
+            transition:width .3s ease;
+            border-radius:2px;
+        }
+        .nav-link:hover{ color:var(--text-hi); }
+        .nav-link:hover::after{ width:100%; }
+
+        .mobile-menu{ display:none; }
+        .mobile-menu.active{ display:block; }
+
+        /* ---------- Hero / motion graphic ---------- */
+        .hero{
+            position:relative;
+            padding-top:132px;
+            isolation:isolate;
+            overflow:hidden;
+            background:
+                radial-gradient(60% 55% at 15% 15%, rgba(139,92,246,.28), transparent 60%),
+                radial-gradient(55% 50% at 85% 20%, rgba(34,211,238,.22), transparent 60%),
+                radial-gradient(60% 60% at 50% 100%, rgba(255,176,32,.14), transparent 60%),
+                var(--ink);
+        }
+        .aurora{ position:absolute; inset:0; z-index:-2; filter:blur(60px); opacity:.75; }
+        .blob{ position:absolute; border-radius:50%; }
+        .blob-1{
+            width:52vw; height:52vw; max-width:640px; max-height:640px;
+            left:-10%; top:-14%;
+            background:radial-gradient(circle, var(--violet), transparent 65%);
+            animation:drift1 22s ease-in-out infinite;
+        }
+        .blob-2{
+            width:44vw; height:44vw; max-width:560px; max-height:560px;
+            right:-8%; top:6%;
+            background:radial-gradient(circle, var(--cyan), transparent 65%);
+            animation:drift2 26s ease-in-out infinite;
+        }
+        .blob-3{
+            width:40vw; height:40vw; max-width:520px; max-height:520px;
+            left:30%; bottom:-20%;
+            background:radial-gradient(circle, var(--pink), transparent 65%);
+            animation:drift3 30s ease-in-out infinite;
+        }
+        @keyframes drift1{
+            0%,100%{ transform:translate(0,0) scale(1); }
+            50%{ transform:translate(8%,10%) scale(1.18); }
+        }
+        @keyframes drift2{
+            0%,100%{ transform:translate(0,0) scale(1); }
+            50%{ transform:translate(-10%,8%) scale(1.12); }
+        }
+        @keyframes drift3{
+            0%,100%{ transform:translate(0,0) scale(1); }
+            50%{ transform:translate(6%,-10%) scale(1.2); }
+        }
+        .grid-overlay{
+            position:absolute; inset:0; z-index:-1;
+            background-image:radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+            background-size:26px 26px;
+            mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 90%);
+        }
+
+        .growth-chart{ position:absolute; z-index:-1; opacity:.55; pointer-events:none; }
+        .growth-chart .line-path{
+            stroke-dasharray:900;
+            stroke-dashoffset:900;
+            animation:draw 2.8s ease forwards .3s;
+        }
+        @keyframes draw{ to{ stroke-dashoffset:0; } }
+        .growth-chart .area-fill{
+            opacity:0;
+            animation:fadeArea 1.2s ease forwards 2.4s;
+        }
+        @keyframes fadeArea{ to{ opacity:1; } }
+        .growth-chart .node-dot{ transform-origin:center; opacity:0; animation:nodeIn .5s ease forwards, pulseDot 2.2s ease-in-out infinite 1.5s; }
+        .growth-chart .pulse-dot{ animation:pulseDot 2.2s ease-in-out infinite; transform-origin:center; }
+        @keyframes pulseDot{
+            0%,100%{ r:7; opacity:1; }
+            50%{ r:13; opacity:.5; }
+        }
+        @keyframes nodeIn{ to{ opacity:1; } }
+
+        /* ---------- Lottie SEO animation beside the avatar ---------- */
+        .lottie-wrap{
+            position:absolute;
+            width:min(260px, 30vw);
+            height:min(260px, 30vw);
+            pointer-events:none;
+            opacity:.92;
+            filter:drop-shadow(0 0 30px rgba(139,92,246,.35));
+        }
+        @media (max-width:900px){ .lottie-wrap{ display:none; } }
+
+        .float-chip{
+            position:absolute;
+            font-size:.8rem;
+            padding:8px 14px;
+            border-radius:999px;
+            background:rgba(20,22,50,.7);
+            border:1px solid var(--border-strong);
+            backdrop-filter:blur(6px);
+            color:var(--text-hi);
+            animation:floaty 6s ease-in-out infinite;
+        }
+        @keyframes floaty{
+            0%,100%{ transform:translateY(0); }
+            50%{ transform:translateY(-14px); }
+        }
+        @media (max-width:640px){ .float-chip{ display:none; } }
+
+        .avatar-ring{
+            position:relative;
+            width:180px; height:180px;
+            border-radius:50%;
+            padding:5px;
+        }
+        .avatar-ring::before{
+            content:"";
+            position:absolute; inset:-6px;
+            border-radius:50%;
+            background:conic-gradient(from 0deg, var(--violet), var(--cyan), var(--amber), var(--pink), var(--violet));
+            animation:spin 8s linear infinite;
+            filter:blur(1px);
+        }
+        .avatar-ring img{
+            position:relative;
+            width:100%; height:100%;
+            border-radius:50%;
+            object-fit:cover;
+            border:4px solid var(--ink);
+            box-shadow:0 0 50px rgba(139,92,246,.45);
+        }
+        @keyframes spin{ to{ transform:rotate(360deg); } }
+
+        @media (min-width:769px){
+            .avatar-ring{ width:210px; height:210px; }
+        }
+
+        .btn-primary{
+            background:var(--grad-brand);
+            color:#0a0b1a;
+            font-weight:700;
+            box-shadow:0 12px 30px rgba(139,92,246,.35);
+            transition:transform .25s ease, box-shadow .25s ease;
+        }
+        .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(34,211,238,.4); }
+        .btn-secondary{
+            background:rgba(255,255,255,.04);
+            border:1px solid var(--border-strong);
+            color:var(--text-hi);
+            transition:all .25s ease;
+        }
+        .btn-secondary:hover{ background:rgba(255,255,255,.09); transform:translateY(-3px); }
+
+        /* ---------- Section heading glow ---------- */
+        .heading-wrap{ position:relative; }
+        .heading-glow{
+            position:absolute; left:50%; top:50%;
+            width:340px; height:180px;
+            transform:translate(-50%,-50%);
+            background:radial-gradient(circle, rgba(139,92,246,.25), transparent 70%);
+            filter:blur(20px);
+            z-index:-1;
+        }
+
+        /* ---------- Cards / panels ---------- */
+        .panel{
+            background:linear-gradient(180deg, var(--surface), var(--surface-2));
+            border:1px solid var(--border);
+            border-radius:20px;
+        }
+        .card-hover{ transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+        .card-hover:hover{
+            transform:translateY(-8px);
+            box-shadow:0 24px 48px rgba(0,0,0,.4);
+            border-color:var(--border-strong);
+        }
+
+        /* ---------- Skill bars ---------- */
+        .skill-track{ background:rgba(255,255,255,.06); border-radius:999px; height:10px; overflow:hidden; }
+        .skill-fill{
+            height:100%;
+            border-radius:999px;
+            width:0%;
+            background:var(--grad-brand);
+            box-shadow:0 0 14px rgba(34,211,238,.6);
+            transition:width 1.4s cubic-bezier(.16,1,.3,1);
+        }
+        .skill-fill.in-view{ width:var(--w); }
+
+        /* ---------- Service icon badge ---------- */
+        .icon-badge{
+            width:60px; height:60px;
+            display:flex; align-items:center; justify-content:center;
+            border-radius:16px;
+            font-size:1.7rem;
+        }
+
+        /* ---------- Portfolio stat chip ---------- */
+        .stat-chip{
+            display:inline-flex; align-items:center; gap:6px;
+            padding:6px 12px;
+            border-radius:999px;
+            font-size:.78rem;
+            background:rgba(139,92,246,.12);
+            border:1px solid var(--border-strong);
+            color:var(--violet-2);
+        }
+        .badge-pulse{
+            display:inline-block;
+            padding:4px 12px;
+            border-radius:999px;
+            background:rgba(255,176,32,.14);
+            border:1px solid rgba(255,176,32,.5);
+            color:var(--amber);
+            font-size:.78rem;
+            animation:softPulse 2.4s ease-in-out infinite;
+        }
+        @keyframes softPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.55; } }
+
+        /* ---------- Contact cards ---------- */
+        .contact-card{
+            position:relative;
+            background:linear-gradient(180deg, var(--surface), var(--surface-2));
+            border:1px solid var(--border);
+            border-radius:18px;
+            overflow:hidden;
+        }
+        .contact-card::before{
+            content:"";
+            position:absolute; inset:0;
+            background:var(--grad-brand);
+            opacity:0;
+            transition:opacity .3s ease;
+            z-index:0;
+        }
+        .contact-card:hover::before{ opacity:.08; }
+        .contact-card > *{ position:relative; z-index:1; }
+        .contact-icon-circle{
+            width:56px; height:56px;
+            border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 12px;
+        }
+
+        /* ---------- Reveal on scroll ---------- */
+        .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+        .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+        /* ==========================================================
+         * Animista animations (as supplied) — used across the page
+         * ========================================================== */
+
+        /* موشن پروژه ها — slide-rotate-ver-right */
+        .slide-rotate-ver-right {
+            -webkit-animation: slide-rotate-ver-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                    animation: slide-rotate-ver-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        @-webkit-keyframes slide-rotate-ver-right {
+          0% { -webkit-transform: translateX(0) rotateY(0); transform: translateX(0) rotateY(0); }
+          100% { -webkit-transform: translateX(150px) rotateY(-90deg); transform: translateX(150px) rotateY(-90deg); }
+        }
+        @keyframes slide-rotate-ver-right {
+          0% { -webkit-transform: translateX(0) rotateY(0); transform: translateX(0) rotateY(0); }
+          100% { -webkit-transform: translateX(150px) rotateY(-90deg); transform: translateX(150px) rotateY(-90deg); }
+        }
+        /* portfolio cards start pre-rotated away, then play the animation in reverse to arrive at rest */
+        .portfolio-card{ opacity:0; transform:translateX(150px) rotateY(-90deg); }
+        .portfolio-card.in-view{
+            opacity:1;
+            -webkit-animation: slide-rotate-ver-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+                    animation: slide-rotate-ver-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+        }
+
+        /* پروفایل من — swing-in-top-bck */
+        .swing-in-top-bck {
+            -webkit-animation: swing-in-top-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+                    animation: swing-in-top-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        }
+        @-webkit-keyframes swing-in-top-bck {
+          0% { -webkit-transform: rotateX(70deg); transform: rotateX(70deg); -webkit-transform-origin: top; transform-origin: top; opacity: 0; }
+          100% { -webkit-transform: rotateX(0deg); transform: rotateX(0deg); -webkit-transform-origin: top; transform-origin: top; opacity: 1; }
+        }
+        @keyframes swing-in-top-bck {
+          0% { -webkit-transform: rotateX(70deg); transform: rotateX(70deg); -webkit-transform-origin: top; transform-origin: top; opacity: 0; }
+          100% { -webkit-transform: rotateX(0deg); transform: rotateX(0deg); -webkit-transform-origin: top; transform-origin: top; opacity: 1; }
+        }
+
+        /* اسکرول به پایین بعد از دیدن هر پروژه — jello-horizontal */
+        .jello-horizontal {
+            -webkit-animation: jello-horizontal 0.9s both;
+                    animation: jello-horizontal 0.9s both;
+        }
+        @-webkit-keyframes jello-horizontal {
+          0% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+          30% { -webkit-transform: scale3d(1.25, 0.75, 1); transform: scale3d(1.25, 0.75, 1); }
+          40% { -webkit-transform: scale3d(0.75, 1.25, 1); transform: scale3d(0.75, 1.25, 1); }
+          50% { -webkit-transform: scale3d(1.15, 0.85, 1); transform: scale3d(1.15, 0.85, 1); }
+          65% { -webkit-transform: scale3d(0.95, 1.05, 1); transform: scale3d(0.95, 1.05, 1); }
+          75% { -webkit-transform: scale3d(1.05, 0.95, 1); transform: scale3d(1.05, 0.95, 1); }
+          100% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+        }
+        @keyframes jello-horizontal {
+          0% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+          30% { -webkit-transform: scale3d(1.25, 0.75, 1); transform: scale3d(1.25, 0.75, 1); }
+          40% { -webkit-transform: scale3d(0.75, 1.25, 1); transform: scale3d(0.75, 1.25, 1); }
+          50% { -webkit-transform: scale3d(1.15, 0.85, 1); transform: scale3d(1.15, 0.85, 1); }
+          65% { -webkit-transform: scale3d(0.95, 1.05, 1); transform: scale3d(0.95, 1.05, 1); }
+          75% { -webkit-transform: scale3d(1.05, 0.95, 1); transform: scale3d(1.05, 0.95, 1); }
+          100% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+        }
+        .scroll-cue{
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            margin:0 auto; width:fit-content;
+            padding:8px 18px;
+            border-radius:999px;
+            background:rgba(139,92,246,.1);
+            border:1px dashed var(--border-strong);
+            color:var(--violet-2);
+            font-size:.82rem;
+        }
+
+        /* چشمک زن — blink-1, on hover of contact icons */
+        @-webkit-keyframes blink-1 {
+          0%, 50%, 100% { opacity: 1; }
+          25%, 75% { opacity: 0; }
+        }
+        @keyframes blink-1 {
+          0%, 50%, 100% { opacity: 1; }
+          25%, 75% { opacity: 0; }
+        }
+        .contact-card:hover .contact-icon-circle{
+            -webkit-animation: blink-1 0.6s both;
+                    animation: blink-1 0.6s both;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .blob, .float-chip, .avatar-ring::before, .growth-chart .pulse-dot, .growth-chart .node-dot, .badge-pulse{ animation:none !important; opacity:1; }
+            .skill-fill, .reveal{ transition:none !important; }
+            .portfolio-card{ opacity:1 !important; transform:none !important; animation:none !important; }
+            .swing-in-top-bck, .jello-horizontal, .contact-card:hover .contact-icon-circle{ animation:none !important; }
+            .lottie-wrap{ display:none !important; }
+        }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="site-shell"><!-- Navigation -->
+  <nav class="navbar fixed top-0 left-0 right-0 z-50">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+     <div class="flex-shrink-0">
+      <h1 class="text-xl sm:text-2xl font-extrabold grad-text">علی بشارتی</h1>
+     </div><!-- Desktop Menu -->
+     <div class="desktop-nav hidden md:flex space-x-reverse space-x-8">
+      <a href="#home" class="nav-link">خانه</a>
+      <a href="#about" class="nav-link">درباره من</a>
+      <a href="#services" class="nav-link">خدمات</a>
+      <a href="#portfolio" class="nav-link">نمونه کارها</a>
+      <a href="#contact" class="nav-link">تماس</a>
+     </div><!-- Mobile Hamburger -->
+     <button class="hamburger md:hidden items-center justify-center w-10 h-10 rounded-lg" style="background:rgba(255,255,255,.05); border:1px solid var(--border);" onclick="toggleMenu()">
+      <svg class="w-6 h-6" fill="none" stroke="var(--text-hi)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+     </button>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden pb-4">
+     <a href="#home" class="block py-2 text-body" onclick="toggleMenu()">خانه</a>
+     <a href="#about" class="block py-2 text-body" onclick="toggleMenu()">درباره من</a>
+     <a href="#services" class="block py-2 text-body" onclick="toggleMenu()">خدمات</a>
+     <a href="#portfolio" class="block py-2 text-body" onclick="toggleMenu()">نمونه کارها</a>
+     <a href="#contact" class="block py-2 text-body" onclick="toggleMenu()">تماس</a>
+    </div>
+   </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero section-padding">
+   <div class="aurora">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+   </div>
+   <div class="grid-overlay"></div>
+
+   <!-- decorative animated growth chart (enlarged) -->
+   <svg class="growth-chart" style="left:2%; bottom:2%; width:min(620px,62vw); height:auto;" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+    <path class="area-fill" d="M10,270 L80,230 L150,245 L230,150 L310,175 L390,90 L470,110 L550,25 L550,300 L10,300 Z" fill="url(#gchArea)"/>
+    <path class="line-path" d="M10,270 L80,230 L150,245 L230,150 L310,175 L390,90 L470,110 L550,25" fill="none" stroke="url(#gchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle class="node-dot" cx="80" cy="230" r="5" fill="var(--violet-2)" style="animation-delay:.6s"/>
+    <circle class="node-dot" cx="230" cy="150" r="5" fill="var(--cyan)" style="animation-delay:1.1s"/>
+    <circle class="node-dot" cx="390" cy="90" r="5" fill="var(--cyan)" style="animation-delay:1.6s"/>
+    <circle class="pulse-dot" cx="550" cy="25" r="7" fill="var(--amber)"/>
+    <defs>
+     <linearGradient id="gchGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="var(--violet)"/>
+      <stop offset="60%" stop-color="var(--cyan)"/>
+      <stop offset="100%" stop-color="var(--amber)"/>
+     </linearGradient>
+     <linearGradient id="gchArea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--cyan)" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0"/>
+     </linearGradient>
+    </defs>
+   </svg>
+
+   <div class="float-chip mono" style="left:6%; top:22%; color:var(--cyan);">🔍 SEO Rank #1</div>
+   <div class="float-chip mono" style="right:6%; top:30%; color:var(--amber); animation-delay:1.5s;">📈 +900% بازدید</div>
+   <div class="float-chip mono" style="right:12%; bottom:14%; color:var(--pink); animation-delay:3s;">💡 UX / Design</div>
+
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="text-center">
+     <div class="mb-6 sm:mb-8 flex justify-center items-center relative">
+      <div id="hero-lottie" class="lottie-wrap" style="right:calc(50% + 130px);"></div>
+      <div class="avatar-ring swing-in-top-bck">
+       <img src="profile.jpg" alt="علی بشارتی" onerror="this.parentElement.outerHTML='<div class=&quot;w-44 h-44 rounded-full flex items-center justify-center text-6xl&quot; style=&quot;background:var(--grad-brand);&quot;>👤</div>';">
+      </div>
+     </div>
+     <h1 id="main-title" class="hero-title text-5xl sm:text-5xl md:text-6xl font-black mb-4 sm:mb-6 grad-text">علی بشارتی</h1>
+     <p id="subtitle" class="hero-sub text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 font-semibold" style="color:var(--text-hi);">متخصص سئو و طراح وب</p>
+     <p id="hero-description" class="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 text-body">کمک به کسب‌وکارها برای رشد آنلاین از طریق بهینه‌سازی استراتژیک سئو و طراحی وب خیره‌کننده که بازدیدکنندگان را به مشتری تبدیل می‌کند</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+      <a href="#portfolio" id="btn-portfolio" class="btn-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg"> نمونه کارهای من </a>
+      <a href="#contact" id="btn-contact" class="btn-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg"> تماس با من </a>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-padding site-shell">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="heading-wrap text-center mb-4 sm:mb-6">
+     <div class="heading-glow"></div>
+     <h2 id="about-title" class="text-3xl sm:text-4xl font-extrabold reveal">درباره من</h2>
+    </div>
+    <p id="about-description" class="text-base sm:text-lg text-center text-body mb-10 sm:mb-14 max-w-3xl mx-auto leading-relaxed reveal">با بیش از ۵ سال تجربه در دیجیتال مارکتینگ و طراحی وب، در ایجاد وب‌سایت‌هایی تخصص دارم که نه تنها فوق‌العاده به نظر می‌رسند بلکه در موتورهای جستجو نیز رتبه بالایی دارند. رویکرد من ترکیبی از تخصص فنی سئو با تفکر خلاقانه طراحی است تا نتایجی ارائه دهم که رشد واقعی کسب‌وکار را به همراه داشته باشد.</p>
+
+    <div class="max-w-4xl mx-auto panel p-6 sm:p-10 reveal">
+     <h3 class="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center">مهارت‌های من</h3>
+     <div class="space-y-7 skill-list">
+      <div class="skill-row">
+       <div class="flex justify-between mb-2"><span class="font-medium text-sm sm:text-base">سئو (SEO)</span> <span class="mono text-sm sm:text-base text-accent">95%</span></div>
+       <div class="skill-track"><div class="skill-fill" style="--w:95%"></div></div>
+      </div>
+      <div class="skill-row">
+       <div class="flex justify-between mb-2"><span class="font-medium text-sm sm:text-base">طراحی وب</span> <span class="mono text-sm sm:text-base text-accent">90%</span></div>
+       <div class="skill-track"><div class="skill-fill" style="--w:90%"></div></div>
+      </div>
+      <div class="skill-row">
+       <div class="flex justify-between mb-2"><span class="font-medium text-sm sm:text-base">تولید محتوا</span> <span class="mono text-sm sm:text-base text-accent">88%</span></div>
+       <div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div>
+      </div>
+      <div class="skill-row">
+       <div class="flex justify-between mb-2"><span class="font-medium text-sm sm:text-base">آنالیتیکس و گزارش‌دهی</span> <span class="mono text-sm sm:text-base text-accent">85%</span></div>
+       <div class="skill-track"><div class="skill-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="skill-row">
+       <div class="flex justify-between mb-2"><span class="font-medium text-sm sm:text-base">دیجیتال مارکتینگ</span> <span class="mono text-sm sm:text-base text-accent">92%</span></div>
+       <div class="skill-track"><div class="skill-fill" style="--w:92%"></div></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section-padding section-alt">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="heading-wrap text-center mb-4 sm:mb-6">
+     <div class="heading-glow"></div>
+     <h2 id="services-title" class="text-3xl sm:text-4xl font-extrabold reveal">خدمات من</h2>
+    </div>
+    <p id="services-description" class="text-base sm:text-lg text-center text-body mb-10 sm:mb-14 max-w-3xl mx-auto reveal">راه‌حل‌های جامع دیجیتال برای کمک به موفقیت آنلاین کسب‌وکار شما ارائه می‌دهم</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+     <!-- Service 1 -->
+     <div class="panel p-6 sm:p-8 card-hover reveal">
+      <div class="icon-badge mb-4" style="background:rgba(139,92,246,.15);">🎯</div>
+      <h3 class="text-lg sm:text-xl font-bold mb-4">بهینه‌سازی سئو</h3>
+      <p class="text-body mb-4 text-sm sm:text-base">ممیزی کامل سئو و بهینه‌سازی برای بهبود رتبه‌بندی موتورهای جستجو و ترافیک ارگانیک.</p>
+      <ul class="text-body space-y-2 text-xs sm:text-sm">
+       <li>• تحقیق و تجزیه‌وتحلیل کلمات کلیدی</li>
+       <li>• بهینه‌سازی سئو داخلی</li>
+       <li>• ممیزی سئو فنی</li>
+       <li>• راه‌اندازی سئو محلی</li>
+      </ul>
+     </div>
+     <!-- Service 2 -->
+     <div class="panel p-6 sm:p-8 card-hover reveal">
+      <div class="icon-badge mb-4" style="background:rgba(34,211,238,.15);">💻</div>
+      <h3 class="text-lg sm:text-xl font-bold mb-4">طراحی وب</h3>
+      <p class="text-body mb-4 text-sm sm:text-base">وب‌سایت‌های مدرن و ریسپانسیو که عالی به نظر می‌رسند و بازدیدکنندگان را به مشتری تبدیل می‌کنند.</p>
+      <ul class="text-body space-y-2 text-xs sm:text-sm">
+       <li>• طراحی ریسپانسیو</li>
+       <li>• تجربه کاربری (UX)</li>
+       <li>• بهینه‌سازی عملکرد</li>
+       <li>• رویکرد موبایل اول</li>
+      </ul>
+     </div>
+     <!-- Service 3 -->
+     <div class="panel p-6 sm:p-8 card-hover reveal">
+      <div class="icon-badge mb-4" style="background:rgba(255,176,32,.15);">📊</div>
+      <h3 class="text-lg sm:text-xl font-bold mb-4">آنالیتیکس و گزارش‌دهی</h3>
+      <p class="text-body mb-4 text-sm sm:text-base">آنالیتیکس دقیق و گزارش‌های ماهانه برای پیگیری عملکرد و رشد وب‌سایت شما.</p>
+      <ul class="text-body space-y-2 text-xs sm:text-sm">
+       <li>• راه‌اندازی گوگل آنالیتیکس</li>
+       <li>• نظارت بر عملکرد</li>
+       <li>• گزارش‌های ماهانه</li>
+       <li>• ردیابی تبدیل</li>
+      </ul>
+     </div>
+     <!-- Service 4 -->
+     <div class="panel p-6 sm:p-8 card-hover reveal">
+      <div class="icon-badge mb-4" style="background:rgba(244,114,182,.15);">✍️</div>
+      <h3 class="text-lg sm:text-xl font-bold mb-4">استراتژی محتوا</h3>
+      <p class="text-body mb-4 text-sm sm:text-base">برنامه‌ریزی و تولید محتوای استراتژیک برای جذب مخاطبان و بهبود سئو.</p>
+      <ul class="text-body space-y-2 text-xs sm:text-sm">
+       <li>• برنامه‌ریزی محتوا</li>
+       <li>• نوشتن وبلاگ</li>
+       <li>• بهینه‌سازی محتوا</li>
+       <li>• تولید محتوا برای هوش مصنوعی</li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section-padding site-shell">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="heading-wrap text-center mb-6">
+     <div class="heading-glow"></div>
+     <h2 id="portfolio-title" class="text-3xl sm:text-4xl font-extrabold reveal">نمونه کارهای من</h2>
+    </div>
+    <p class="text-center text-body max-w-2xl mx-auto mb-12 sm:mb-16 reveal">مجموعه‌ای از کسب‌وکارهایی که افتخار همکاری با آن‌ها را داشته‌ام؛ از فروشگاه‌های اینترنتی تا خدمات محلی و پزشکی.</p>
+
+    <div class="space-y-10 sm:space-y-16" id="portfolio-list">
+
+     <!-- Project 1 -->
+     <div class="portfolio-card panel p-5 sm:p-10 card-hover" data-index="01">
+      <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
+       <div class="lg:w-2/5">
+        <img src="https://www.dropbox.com/scl/fi/ibliatz1l3r3ealtkdda7/image.png?rlkey=irkdur1mwp2km7tdmt02zszl3&amp;st=deudmjxu&amp;dl=1" alt="اتصال آنلاین" class="w-full h-56 sm:h-80 rounded-xl object-cover shadow-md" style="border:1px solid var(--border);" onerror="this.outerHTML='<div class=\'h-56 sm:h-80 rounded-xl flex items-center justify-center text-5xl sm:text-6xl\' style=\'background:var(--grad-brand);\'>🏢</div>';">
+       </div>
+       <div class="lg:w-3/5">
+        <span class="mono text-xs" style="color:var(--violet-2);">پروژه 01</span>
+        <h3 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 mt-1">اتصال آنلاین</h3>
+        <a href="https://etesalonline.com" target="_blank" rel="noopener noreferrer" class="mono text-accent hover:opacity-80 mb-3 sm:mb-4 inline-block text-sm sm:text-base">etesalonline.com ↗</a>
+        <p class="text-body leading-relaxed text-sm sm:text-base mb-4">وظیفه اصلی من در مجموعه اتصال آنلاین، افزایش بازدید و نرخ تبدیل کاربران به خریداران واقعی بود که به کمک تیم مجموعه انجام شده. به عنوان کارشناس سئو، استراتژی های لازم برای دریافت رتبه در گوگل برای کلمات کلیدی دشواری همچون "قیمت لوله مانیسمان" و "دریچه نانوکامپوزیت" و "لوله سفید" و حدود 20 کلمه کلیدی دیگر انجام شد و بازدید وبسایت از هفته ای 50 کلیک، به روزانه 505 کلید افزایش یافت و ایمپرشن بیشتر از 15000 دریافت شد. فروش مجموعه با استفاده از پلاگین های ثبت سفارش و ثبت تغییرات قیمتی محصولات افزایش یافت و ارزش دامنه اتصال آنلاین را بیشتر و بیشتر کرد. ایجاد تصاویر یونیک، ساخت ویدیو ، سئو یوتیوب مجموعه و همچنین، ایجاد لیست های قیمتی و مشخصات فنی متنوع، از دیگر کار های جانبی بنده در این مجموعه بوده است. از مهم ترین کار های جانبی بنده در وبسایت اتصال آنلاین، می توان به کار کردن بر روی محتوای "کلمپ تعمیراتی" برای هوش مصنوعی هایی چون جمینای و چت جی پی تی اشاره کرد تا از این طریق نیز، ورودی ها را دریافت نمایند. افتخار همکاری با مجموعه اتصال آنلاین را از سال 1401 دارم و امیدوارم به زودی این مجموعه، به یکی از قطب های صنعت خود تبدیل شود.</p>
+        <div class="flex flex-wrap gap-2">
+         <span class="stat-chip mono">📈 از ۵۰ به ۵۰۵ کلیک روزانه</span>
+         <span class="stat-chip mono">👁️ +۱۵,۰۰۰ ایمپرشن</span>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="scroll-cue-wrap flex justify-center"><span class="scroll-cue mono" data-cue>پروژه بعدی ↓</span></div>
+
+     <!-- Project 2 -->
+     <div class="portfolio-card panel p-5 sm:p-10 card-hover" data-index="02">
+      <div class="flex flex-col lg:flex-row-reverse gap-6 sm:gap-10">
+       <div class="lg:w-2/5">
+        <img src="https://www.dropbox.com/scl/fi/vhlbcdot8l3a2gmlxu4h0/Screenshot-. .png?rlkey=s423agpy3c1djlkpdh2ce8qm1&amp;st=rvp3dmgy&amp;dl=1" alt="سیال مارکت" class="w-full h-56 sm:h-80 rounded-xl object-cover shadow-md" style="border:1px solid var(--border);" onerror="this.outerHTML='<div class=\'h-56 sm:h-80 rounded-xl flex items-center justify-center text-5xl sm:text-6xl\' style=\'background:linear-gradient(120deg,var(--cyan),var(--blue));\'>💧</div>';">
+       </div>
+       <div class="lg:w-3/5">
+        <span class="mono text-xs" style="color:var(--violet-2);">پروژه 02</span>
+        <h3 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 mt-1">سیال مارکت</h3>
+        <a href="https://sayalmarket.com" target="_blank" rel="noopener noreferrer" class="mono text-accent hover:opacity-80 mb-3 sm:mb-4 inline-block text-sm sm:text-base">sayalmarket.com ↗</a>
+        <p class="text-body leading-relaxed text-sm sm:text-base mb-4">به عنوان کارشناس سئو از سال 1404 با مجموعه تازه تاسیس سیال مارکت به مدیریت جناب مهندس عظیمی نیا، همکاری خود را شروع کردم. هدف اصلی، افزایش محتوا و محصولات مجموعه، فروش بیشتر از طریق افزایش نرخ تبدیل و سئو کلمات کلیدی متنوع بوده است. خوش بختانه تا به این لحظه، وبسایت سیال مارکت توانسته است تا در عبارت های کلیدی همچون "کنترل هوشمند هیماتک" و "فلوتر برقی" جزو رتبه های برتر صفحه 1 سرپ قرار بگیرد. هدف بعدی و پلن های پیش رو، افزایش بازدید از طریق تولید محتوای مخصوص برای هوش مصنوعی است تا از طریق جمینای گوگل و چت جی پی تی، ورودی های لازم را دریافت نمایند. مدیریت چنل یوتیوب و سئو، تدوین و ساخت ویدیو ها، ادیت تصاویر و محتوا های وبسایت و ... نیز بر عهده بنده و تیم من می باشد. امید است که به زودی مجموعه سیال مارکت، جایگاه بسیار بالایی در حوزه پمپ و لوازم مرتبط به دست آورد.</p>
+        <div class="flex flex-wrap gap-2">
+         <span class="stat-chip mono">🏆 صفحه ۱ گوگل</span>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="scroll-cue-wrap flex justify-center"><span class="scroll-cue mono" data-cue>پروژه بعدی ↓</span></div>
+
+     <!-- Project 3: Elysia Secret -->
+     <div class="portfolio-card panel p-5 sm:p-10 card-hover" data-index="03">
+      <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
+       <div class="lg:w-2/5">
+        <div class="h-56 sm:h-80 rounded-xl flex items-center justify-center text-5xl sm:text-6xl" style="background:linear-gradient(120deg,var(--pink),var(--violet));">
+         🛍️
+        </div>
+       </div>
+       <div class="lg:w-3/5">
+        <span class="mono text-xs" style="color:var(--violet-2);">پروژه 03</span>
+        <h3 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 mt-1">الیزیا سکرت</h3>
+        <a href="https://elysiasecret.com" target="_blank" rel="noopener noreferrer" class="mono text-accent hover:opacity-80 mb-3 sm:mb-4 inline-block text-sm sm:text-base">elysiasecret.com ↗</a>
+        <p class="text-body leading-relaxed text-sm sm:text-base mb-4">همکاری با الیزیا سکرت، فروشگاه اینترنتی فعال در حوزه لباس زیر زنانه، از جمله پروژه‌های در حال انجام من است. تمرکز اصلی این همکاری بر رشد فروش و افزایش دیده‌شدن برند از طریق بهینه‌سازی سئو، بهبود تجربه کاربری فروشگاه و استراتژی محتوایی متناسب با این حوزه است تا بازدیدکنندگان بیشتری به مشتریان واقعی تبدیل شوند.</p>
+        <div class="flex flex-wrap gap-2">
+         <span class="stat-chip mono">🛍️ فروشگاه اینترنتی پوشاک</span>
+         <span class="stat-chip mono">📈 در مسیر رشد فروش</span>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="scroll-cue-wrap flex justify-center"><span class="scroll-cue mono" data-cue>پروژه بعدی ↓</span></div>
+
+     <!-- Project 4: Tamir Bartar -->
+     <div class="portfolio-card panel p-5 sm:p-10 card-hover" data-index="04">
+      <div class="flex flex-col lg:flex-row-reverse gap-6 sm:gap-10">
+       <div class="lg:w-2/5">
+        <div class="h-56 sm:h-80 rounded-xl flex items-center justify-center text-5xl sm:text-6xl" style="background:linear-gradient(120deg,var(--amber),var(--green));">
+         🛠️
+        </div>
+       </div>
+       <div class="lg:w-3/5">
+        <span class="mono text-xs" style="color:var(--violet-2);">پروژه 04</span>
+        <h3 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 mt-1">تعمیر برتر</h3>
+        <a href="https://tamirebartar.com" target="_blank" rel="noopener noreferrer" class="mono text-accent hover:opacity-80 mb-3 sm:mb-4 inline-block text-sm sm:text-base">tamirebartar.com ↗</a>
+        <p class="text-body leading-relaxed text-sm sm:text-base mb-4">تعمیر برتر در زمینه تعمیرات لوازم خانگی فعالیت می‌کند و همکاری من با این مجموعه بر پایه سئو محلی (Local SEO) بوده تا کاربرانی که در منطقه خود به دنبال خدمات تعمیرات هستند، راحت‌تر این کسب‌وکار را در نتایج گوگل پیدا کنند و به مشتری تبدیل شوند.</p>
+        <div class="flex flex-wrap gap-2">
+         <span class="stat-chip mono">📍 سئو لوکال</span>
+         <span class="stat-chip mono">🔧 تعمیرات لوازم خانگی</span>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="scroll-cue-wrap flex justify-center"><span class="scroll-cue mono" data-cue>پروژه بعدی ↓</span></div>
+
+     <!-- Project 5: Dr. Baghaeian -->
+     <div class="portfolio-card panel p-5 sm:p-10 card-hover" data-index="05">
+      <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
+       <div class="lg:w-2/5">
+        <div class="h-56 sm:h-80 rounded-xl flex items-center justify-center text-5xl sm:text-6xl" style="background:linear-gradient(120deg,var(--cyan),var(--violet));">
+         🦷
+        </div>
+       </div>
+       <div class="lg:w-3/5">
+        <span class="mono text-xs" style="color:var(--violet-2);">پروژه 05</span>
+        <h3 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 mt-1">دکتر بقائیان</h3>
+        <a href="https://drbaghaeian.com" target="_blank" rel="noopener noreferrer" class="mono text-accent hover:opacity-80 mb-3 sm:mb-4 inline-block text-sm sm:text-base">drbaghaeian.com ↗</a>
+        <p class="text-body leading-relaxed text-sm sm:text-base mb-4">دکتر بقائیان، دندان‌پزشک متخصص ارتودنسی، از جمله پروژه‌هایی است که برای دیده‌شدن بهتر ایشان در نتایج جستجو فعالیت کرده‌ام. تمرکز اصلی این همکاری، سئو محلی برای شهر قدس بوده تا بیماران این منطقه، هنگام جستجوی خدمات ارتودنسی و دندان‌پزشکی، راحت‌تر ایشان را پیدا کنند.</p>
+        <div class="flex flex-wrap gap-2">
+         <span class="stat-chip mono">🦷 ارتودنسی و دندان‌پزشکی</span>
+         <span class="stat-chip mono">📍 دیده شدن در شهر قدس</span>
+        </div>
+       </div>
+      </div>
+     </div>
+
+    </div>
+   </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section-padding section-alt">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="heading-wrap text-center mb-10 sm:mb-14">
+     <div class="heading-glow"></div>
+     <h2 id="contact-title" class="text-3xl sm:text-4xl font-extrabold reveal">تماس با من</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
+     <!-- LinkedIn -->
+     <a href="https://www.linkedin.com/in/ali-besharati-2836331aa?utm_source=share&amp;utm_campaign=share_via&amp;utm_content=profile&amp;utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="contact-card p-6 card-hover text-center reveal">
+      <div class="contact-icon-circle" style="background:rgba(56,189,248,.15);">
+       <img src="https://www.dropbox.com/scl/fi/rxmczdg4bx8mlehbs5dyi/linkdin.png?rlkey=j0nhb5jzgduo6u5bu5herpo3x&amp;st=27lj8l9d&amp;dl=1" alt="LinkedIn" class="w-8 h-8 object-contain" onerror="this.outerHTML='<span style=&quot;font-size:1.6rem;&quot;>💼</span>';">
+      </div>
+      <h3 class="font-semibold mb-2 text-sm sm:text-base">لینکدین</h3>
+      <p class="text-xs sm:text-sm text-body">Ali Besharati</p>
+     </a>
+     <!-- Phone -->
+     <a href="tel:+989991046844" class="contact-card p-6 card-hover text-center reveal">
+      <div class="contact-icon-circle" style="background:rgba(52,211,153,.15);">
+       <span style="font-size:1.6rem;">📱</span>
+      </div>
+      <h3 class="font-semibold mb-2 text-sm sm:text-base">تماس تلفنی</h3>
+      <p class="mono text-xs sm:text-sm text-body" dir="ltr">+98 999 104 6844</p>
+     </a>
+     <!-- Email -->
+     <a href="mailto:alibbesharati35@gmail.com" class="contact-card p-6 card-hover text-center reveal">
+      <div class="contact-icon-circle" style="background:rgba(244,114,182,.15);">
+       <span style="font-size:1.6rem;">📧</span>
+      </div>
+      <h3 class="font-semibold mb-2 text-sm sm:text-base">ایمیل</h3>
+      <p class="mono text-xs sm:text-sm text-body break-all">alibbesharati35@gmail.com</p>
+     </a>
+     <!-- Telegram -->
+     <a href="http://t.me/Alibesharati78" target="_blank" rel="noopener noreferrer" class="contact-card p-6 card-hover text-center reveal">
+      <div class="contact-icon-circle" style="background:rgba(56,189,248,.15);">
+       <img src="https://www.dropbox.com/scl/fi/6o28brlixbv4fnfv3qysb/Telegram_2019_Logo.png?rlkey=hnofi687mlulz7s425ie3engr&amp;st=6h4rv3bo&amp;dl=1" alt="Telegram" class="w-8 h-8 object-contain" onerror="this.outerHTML='<span style=&quot;font-size:1.6rem;&quot;>✈️</span>';">
+      </div>
+      <h3 class="font-semibold mb-2 text-sm sm:text-base">تلگرام</h3>
+      <p class="text-xs sm:text-sm text-body">@Alibesharati78</p>
+     </a>
+     <!-- GitHub -->
+     <a href="https://github.com/alibesharati-SEO" target="_blank" rel="noopener noreferrer" class="contact-card p-6 card-hover text-center reveal">
+      <div class="contact-icon-circle" style="background:rgba(139,92,246,.15);">
+       <img src="https://www.dropbox.com/scl/fi/ykv7oea3nykifxcr6anf7/GitHub-Symbol.png?rlkey=h619hmm3kutjpzr6nrxe50iwu&amp;st=ewd45ooo&amp;dl=1" alt="GitHub" class="w-8 h-8 object-contain" onerror="this.outerHTML='<span style=&quot;font-size:1.6rem;&quot;>💻</span>';">
+      </div>
+      <h3 class="font-semibold mb-2 text-sm sm:text-base">گیت‌هاب</h3>
+      <p class="text-xs sm:text-sm text-body">alibesharati-SEO</p>
+     </a>
+    </div>
+   </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 sm:py-8" style="background:var(--ink-soft); border-top:1px solid var(--border);">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p id="footer-text" class="text-sm sm:text-base text-body">© 2025 علی بشارتی. تمامی حقوق محفوظ است.</p>
+   </div>
+  </footer>
+
+  <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Scroll reveal
+        const revealItems = document.querySelectorAll('.reveal');
+        const skillRows = document.querySelectorAll('.skill-fill');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealItems.forEach(el => revealObserver.observe(el));
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        skillRows.forEach(el => skillObserver.observe(el));
+
+        // Portfolio cards: slide-rotate-ver-right entrance
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+        const portfolioObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    portfolioObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        portfolioCards.forEach(el => portfolioObserver.observe(el));
+
+        // Scroll cues between projects: jello-horizontal
+        const scrollCues = document.querySelectorAll('[data-cue]');
+        const cueObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('jello-horizontal');
+                    cueObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.6 });
+        scrollCues.forEach(el => cueObserver.observe(el));
+
+        // Lottie SEO animation next to the profile photo
+        (function loadLottie(){
+            const container = document.getElementById('hero-lottie');
+            if (!container) return;
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js';
+            script.onload = function () {
+                if (window.lottie) {
+                    window.lottie.loadAnimation({
+                        container: container,
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        path: 'seo-animation.json'
+                    });
+                }
+            };
+            document.body.appendChild(script);
+        })();
+
+        const defaultConfig = {
+            main_title: "علی بشارتی",
+            subtitle: "متخصص سئو و طراح وب",
+            hero_description: "کمک به کسب‌وکارها برای رشد آنلاین از طریق بهینه‌سازی استراتژیک سئو و طراحی وب خیره‌کننده که بازدیدکنندگان را به مشتری تبدیل می‌کند",
+            button_portfolio: "نمونه کارهای من",
+            button_contact: "تماس با من",
+            about_title: "درباره من",
+            about_description: "با بیش از ۵ سال تجربه در دیجیتال مارکتینگ و طراحی وب، در ایجاد وب‌سایت‌هایی تخصص دارم که نه تنها فوق‌العاده به نظر می‌رسند بلکه در موتورهای جستجو نیز رتبه بالایی دارند. رویکرد من ترکیبی از تخصص فنی سئو با تفکر خلاقانه طراحی است تا نتایجی ارائه دهم که رشد واقعی کسب‌وکار را به همراه داشته باشد.",
+            services_title: "خدمات من",
+            services_description: "راه‌حل‌های جامع دیجیتال برای کمک به موفقیت آنلاین کسب‌وکار شما ارائه می‌دهم",
+            portfolio_title: "نمونه کارهای من",
+            contact_title: "تماس با من",
+            footer_text: "© 2025 علی بشارتی. تمامی حقوق محفوظ است.",
+            background_color: "#08091a",
+            surface_color: "#12142e",
+            text_color: "#f6f4ff",
+            primary_action_color: "#8b5cf6",
+            secondary_action_color: "#22d3ee"
+        };
+
+        async function onConfigChange(config) {
+            document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+            document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+            document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+            document.getElementById('btn-portfolio').textContent = config.button_portfolio || defaultConfig.button_portfolio;
+            document.getElementById('btn-contact').textContent = config.button_contact || defaultConfig.button_contact;
+            document.getElementById('about-title').textContent = config.about_title || defaultConfig.about_title;
+            document.getElementById('about-description').textContent = config.about_description || defaultConfig.about_description;
+            document.getElementById('services-title').textContent = config.services_title || defaultConfig.services_title;
+            document.getElementById('services-description').textContent = config.services_description || defaultConfig.services_description;
+            document.getElementById('portfolio-title').textContent = config.portfolio_title || defaultConfig.portfolio_title;
+            document.getElementById('contact-title').textContent = config.contact_title || defaultConfig.contact_title;
+            document.getElementById('footer-text').textContent = config.footer_text || defaultConfig.footer_text;
+
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const surfaceColor = config.surface_color || defaultConfig.surface_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+            const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+            document.documentElement.style.setProperty('--ink', backgroundColor);
+            document.documentElement.style.setProperty('--surface', surfaceColor);
+            document.documentElement.style.setProperty('--text-hi', textColor);
+            document.documentElement.style.setProperty('--violet', primaryActionColor);
+            document.documentElement.style.setProperty('--cyan', secondaryActionColor);
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.config.background_color = value;
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.surface_color || defaultConfig.surface_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.config.surface_color = value;
+                                window.elementSdk.setConfig({ surface_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.config.text_color = value;
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.config.primary_action_color = value;
+                                window.elementSdk.setConfig({ primary_action_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.config.secondary_action_color = value;
+                                window.elementSdk.setConfig({ secondary_action_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle],
+                ["hero_description", config.hero_description || defaultConfig.hero_description],
+                ["button_portfolio", config.button_portfolio || defaultConfig.button_portfolio],
+                ["button_contact", config.button_contact || defaultConfig.button_contact],
+                ["about_title", config.about_title || defaultConfig.about_title],
+                ["about_description", config.about_description || defaultConfig.about_description],
+                ["services_title", config.services_title || defaultConfig.services_title],
+                ["services_description", config.services_description || defaultConfig.services_description],
+                ["portfolio_title", config.portfolio_title || defaultConfig.portfolio_title],
+                ["contact_title", config.contact_title || defaultConfig.contact_title],
+                ["footer_text", config.footer_text || defaultConfig.footer_text]
+            ]);
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a72737704d13626',t:'MTc2NDU5MDcwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
