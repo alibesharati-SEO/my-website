@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>علی بشارتی | متخصص سئو و طراح وب</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --ink: #0a0b1f;
+      --ink-soft: #11142f;
+      --surface: #161a38;
+      --surface-2: #1e2448;
+      --accent: #7c3aed;
+      --accent-2: #22d3ee;
+      --text-hi: #f8f7ff;
+      --text-mu: #b4b0d0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      background: var(--ink);
+      color: var(--text-hi);
+      line-height: 1.7;
+    }
+
+    .hero-bg {
+      background: radial-gradient(circle at 30% 20%, rgba(124, 58, 237, 0.4) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(34, 211, 238, 0.35) 0%, transparent 60%),
+                  var(--ink);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to left, var(--accent), var(--accent-2));
+      transition: width 0.4s ease;
+    }
+    .nav-link:hover:after { width: 100%; }
+
+    .section-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a5b4fc, #67e8f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card {
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .blob {
+      animation: float 25s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(30px, 40px) rotate(8deg); }
+    }
+
+    .portfolio-img {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .portfolio-card:hover .portfolio-img {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0b1f]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl">AB</div>
+        <h1 class="text-2xl font-bold tracking-tight">علی بشارتی</h1>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-10 text-lg">
+        <a href="#home" class="nav-link text-white/80 hover:text-white">خانه</a>
+        <a href="#about" class="nav-link text-white/80 hover:text-white">درباره من</a>
+        <a href="#services" class="nav-link text-white/80 hover:text-white">خدمات</a>
+        <a href="#portfolio" class="nav-link text-white/80 hover:text-white">نمونه کارها</a>
+        <a href="#contact" class="nav-link text-white/80 hover:text-white">تماس</a>
+      </div>
+
+      <a href="#contact" 
+         class="px-8 py-3 bg-white text-[#0a0b1f] font-semibold rounded-2xl hover:bg-white/90 transition-all active:scale-95">
+        شروع همکاری
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero-bg min-h-screen pt-24 flex items-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] [background-size:40px_40px] opacity-40"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl px-6 py-2 text-sm">
+          <span class="text-emerald-400">●</span>
+          <span>در دسترس برای پروژه‌های جدید</span>
+        </div>
+        
+        <h1 class="text-6xl md:text-7xl font-black leading-none tracking-tighter">
+          علی بشارتی
+        </h1>
+        <p class="text-3xl md:text-4xl text-white/90 font-medium">متخصص سئو و طراح وب</p>
+        
+        <p class="text-xl text-white/70 max-w-lg">
+          وب‌سایت‌هایی که هم زیبا هستند و هم در گوگل رتبه اول می‌گیرند. 
+          بیش از ۵ سال تجربه در تبدیل بازدیدکننده به مشتری واقعی.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#portfolio" 
+             class="px-10 py-5 bg-gradient-to-r from-violet-600 to-cyan-500 rounded-3xl font-semibold text-xl flex items-center gap-3 hover:scale-105 transition-all">
+            <i class="fas fa-briefcase"></i>
+            نمونه کارها
+          </a>
+          <a href="#contact" 
+             class="px-10 py-5 border border-white/30 hover:border-white/60 rounded-3xl font-semibold text-xl transition-all">
+            تماس با من
+          </a>
+        </div>
+
+        <div class="flex gap-8 pt-6">
+          <div>
+            <div class="stat-number">+900%</div>
+            <div class="text-sm text-white/60">افزایش بازدید</div>
+          </div>
+          <div>
+            <div class="stat-number">رتبه ۱</div>
+            <div class="text-sm text-white/60">گوگل</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex justify-center">
+        <div class="relative">
+          <div class="absolute -inset-12 bg-gradient-to-br from-violet-500 via-cyan-400 to-pink-500 rounded-[4rem] blur-3xl opacity-30"></div>
+          <img src="profile.jpg" alt="علی بشارتی" 
+               class="w-80 h-80 object-cover rounded-3xl shadow-2xl ring-8 ring-white/10 relative z-10"
+               onerror="this.src='https://picsum.photos/id/64/600/600'">
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-6 -right-6 bg-[#161a38] border border-white/20 rounded-2xl px-5 py-3 text-sm backdrop-blur-md shadow-xl">
+            SEO Expert
+          </div>
+          <div class="absolute -bottom-8 left-8 bg-[#161a38] border border-cyan-400/30 text-cyan-400 rounded-2xl px-5 py-3 text-sm backdrop-blur-md shadow-xl flex items-center gap-2">
+            <i class="fas fa-arrow-trend-up"></i>
+            رشد مداوم
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 text-sm">
+      <div>پروژه‌های موفق</div>
+      <i class="fas fa-chevron-down animate-bounce"></i>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-24 bg-[#11142f]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="px-6 py-2 bg-white/5 rounded-full text-sm tracking-widest">WHO AM I</span>
+        <h2 class="section-title mt-6">درباره من</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5">
+          <div class="bg-[#161a38] p-10 rounded-3xl border border-white/10">
+            <div class="space-y-8">
+              <div class="flex items-center gap-6">
+                <div class="text-6xl">🎯</div>
+                <div>
+                  <div class="font-semibold text-2xl">سئو تکنیکال + محتوا</div>
+                  <div class="text-white/60">رتبه‌های برتر گوگل</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6">
+                <div class="text-6xl">✨</div>
+                <div>
+                  <div class="font-semibold text-2xl">طراحی مدرن</div>
+                  <div class="text-white/60">UX/UI حرفه‌ای</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="md:col-span-7 text-lg text-white/80 leading-relaxed">
+          با بیش از ۵ سال تجربه در حوزه دیجیتال مارکتینگ و طراحی وب، به کسب‌وکارها کمک می‌کنم تا هم از نظر بصری خیره‌کننده باشند و هم در موتورهای جستجو بدرخشند. 
+          ترکیب تخصص سئو با طراحی کاربرمحور، دقیقاً همان چیزی است که امروز کسب‌وکارها برای رشد واقعی نیاز دارند.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="section-title">خدمات من</h2>
+        <p class="mt-4 text-xl text-white/70 max-w-md mx-auto">راه‌حل‌های کامل برای رشد دیجیتال کسب‌وکار شما</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 h-full group">
+          <div class="text-5xl mb-6">🔍</div>
+          <h3 class="text-2xl font-bold mb-3">بهینه‌سازی سئو</h3>
+          <p class="text-white/70">ممیزی کامل، تحقیق کلمات کلیدی، سئو داخلی و فنی، و استراتژی رشد ارگانیک.</p>
+        </div>
+        
+        <div class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 h-full group">
+          <div class="text-5xl mb-6">💻</div>
+          <h3 class="text-2xl font-bold mb-3">طراحی وب</h3>
+          <p class="text-white/70">وب‌سایت‌های مدرن، سریع و ریسپانسیو با تمرکز بر تبدیل بازدیدکننده به مشتری.</p>
+        </div>
+        
+        <div class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 h-full group">
+          <div class="text-5xl mb-6">📊</div>
+          <h3 class="text-2xl font-bold mb-3">آنالیز و گزارش</h3>
+          <p class="text-white/70">نظارت مداوم عملکرد، گوگل آنالیتیکس و گزارش‌های ماهانه شفاف.</p>
+        </div>
+        
+        <div class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 h-full group">
+          <div class="text-5xl mb-6">✍️</div>
+          <h3 class="text-2xl font-bold mb-3">استراتژی محتوا</h3>
+          <p class="text-white/70">تولید محتوا، بهینه‌سازی برای هوش مصنوعی و برنامه‌ریزی بلندمدت.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-24 bg-[#11142f]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="section-title">نمونه کارها</h2>
+      </div>
+
+      <div class="space-y-20">
+        <!-- Project 1 -->
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div class="portfolio-card overflow-hidden rounded-3xl border border-white/10">
+            <img src="https://www.dropbox.com/scl/fi/ibliatz1l3r3ealtkdda7/image.png?rlkey=irkdur1mwp2km7tdmt02zszl3&st=deudmjxu&dl=1" 
+                 class="portfolio-img w-full h-full object-cover" alt="اتصال آنلاین">
+          </div>
+          <div>
+            <div class="text-violet-400 text-sm tracking-widest mb-2">اتصال آنلاین • ۱۴۰۱ تاکنون</div>
+            <h3 class="text-4xl font-bold mb-6">اتصال آنلاین</h3>
+            <p class="text-white/80 leading-relaxed mb-8">
+              افزایش بازدید از هفته‌ای ۵۰ کلیک به روزانه ۵۰۵ کلیک. رتبه صفحه اول برای کلمات کلیدی سخت مانند "قیمت لوله مانیسمان" و "دریچه نانوکامپوزیت".
+            </p>
+            <div class="flex gap-3 flex-wrap">
+              <span class="bg-white/5 px-5 py-2 rounded-2xl text-sm">+۹۰۰٪ بازدید</span>
+              <span class="bg-white/5 px-5 py-2 rounded-2xl text-sm">۱۵٬۰۰۰+ ایمپرشن</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div class="order-2 md:order-1">
+            <div class="text-violet-400 text-sm tracking-widest mb-2">سیال مارکت • ۱۴۰۴</div>
+            <h3 class="text-4xl font-bold mb-6">سیال مارکت</h3>
+            <p class="text-white/80 leading-relaxed mb-8">
+              رتبه صفحه اول گوگل برای عباراتی مانند "کنترل هوشمند هیماتک" و "فلوتر برقی". تمرکز بر سئو محتوا و تولید ویدیو.
+            </p>
+          </div>
+          <div class="portfolio-card overflow-hidden rounded-3xl border border-white/10 order-1 md:order-2">
+            <img src="https://www.dropbox.com/scl/fi/vhlbcdot8l3a2gmlxu4h0/Screenshot-. .png?rlkey=s423agpy3c1djlkpdh2ce8qm1&st=rvp3dmgy&dl=1" 
+                 class="portfolio-img w-full h-full object-cover" alt="سیال مارکت">
+          </div>
+        </div>
+
+        <!-- Remaining projects (similar modern cards) -->
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="portfolio-card bg-[#161a38] p-8 rounded-3xl border border-white/10">
+            <div class="h-64 bg-gradient-to-br from-pink-500 to-violet-600 rounded-2xl mb-6 flex items-center justify-center text-7xl">🛍️</div>
+            <h4 class="text-2xl font-bold mb-2">الیزیا سکرت</h4>
+            <p class="text-white/70 text-sm">رشد فروش فروشگاه لباس زیر زنانه از طریق سئو و UX</p>
+          </div>
+          
+          <div class="portfolio-card bg-[#161a38] p-8 rounded-3xl border border-white/10">
+            <div class="h-64 bg-gradient-to-br from-amber-500 to-emerald-500 rounded-2xl mb-6 flex items-center justify-center text-7xl">🛠️</div>
+            <h4 class="text-2xl font-bold mb-2">تعمیر برتر</h4>
+            <p class="text-white/70 text-sm">سئو محلی قوی برای خدمات تعمیرات لوازم خانگی</p>
+          </div>
+          
+          <div class="portfolio-card bg-[#161a38] p-8 rounded-3xl border border-white/10">
+            <div class="h-64 bg-gradient-to-br from-cyan-500 to-violet-600 rounded-2xl mb-6 flex items-center justify-center text-7xl">🦷</div>
+            <h4 class="text-2xl font-bold mb-2">دکتر بقائیان</h4>
+            <p class="text-white/70 text-sm">سئو محلی دندانپزشکی در شهر قدس</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="section-title mb-6">آماده همکاری هستم</h2>
+      <p class="text-2xl text-white/70 mb-12">بیایید با هم کسب‌وکارتان را به سطح بعدی ببریم</p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <a href="https://www.linkedin.com/in/ali-besharati-2836331aa" target="_blank" class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 hover:border-violet-400 transition-colors">
+          <i class="fab fa-linkedin text-4xl mb-4 text-[#0a66c2]"></i>
+          <div class="font-medium">لینکدین</div>
+        </a>
+        <a href="tel:+989991046844" class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 hover:border-emerald-400 transition-colors">
+          <i class="fas fa-phone text-4xl mb-4 text-emerald-400"></i>
+          <div class="font-medium">تماس</div>
+          <div class="text-sm text-white/60">۰۹۹۹۱۰۴۶۸۴۴</div>
+        </a>
+        <a href="mailto:alibbesharati35@gmail.com" class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 hover:border-pink-400 transition-colors">
+          <i class="fas fa-envelope text-4xl mb-4 text-pink-400"></i>
+          <div class="font-medium">ایمیل</div>
+        </a>
+        <a href="http://t.me/Alibesharati78" target="_blank" class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 hover:border-sky-400 transition-colors">
+          <i class="fab fa-telegram text-4xl mb-4 text-sky-400"></i>
+          <div class="font-medium">تلگرام</div>
+        </a>
+        <a href="https://github.com/alibesharati-SEO" target="_blank" class="card bg-[#161a38] p-8 rounded-3xl border border-white/10 hover:border-gray-400 transition-colors">
+          <i class="fab fa-github text-4xl mb-4"></i>
+          <div class="font-medium">گیت‌هاب</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-12 border-t border-white/10 text-center text-white/50 text-sm">
+    © ۱۴۰۴ علی بشارتی — تمامی حقوق محفوظ است.
+  </footer>
+
+  <script>
+    // Tailwind script already included via CDN
+    console.log('%cوبسایت علی بشارتی با UI/UX Pro Max بازطراحی شد ✅', 'color:#a5b4fc; font-size:14px');
+  </script>
+</body>
+</html>
