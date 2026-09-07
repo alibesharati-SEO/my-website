@@ -1,103 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap');
+
 .syr-rates-wrapper {
 	direction: rtl;
 	text-align: right;
 	font-family: 'Vazirmatn', 'Peyda', tahoma, sans-serif;
-	margin: 20px 0;
+	margin: 25px 0;
+	box-sizing: border-box;
 }
 
-/* Table Style */
+.syr-rates-wrapper *, .syr-rates-wrapper *::before, .syr-rates-wrapper *::after {
+	box-sizing: border-box;
+}
+
+.syr-table-container {
+	background: #ffffff;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	border: 1px solid #e2e8f0;
+	transition: all 0.3s ease;
+}
+
+.syr-table-header {
+	background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+	padding: 20px 24px;
+	border-bottom: 3px solid #3b82f6;
+	text-align: center;
+}
+
+.syr-table-title {
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: 800;
+	margin: 0;
+	letter-spacing: -0.3px;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 .syr-rates-table {
 	width: 100%;
 	border-collapse: collapse;
+	border-spacing: 0;
 	background: #ffffff;
-	border-radius: 12px;
-	overflow: hidden;
-	box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-	border: 1px solid #e2e8f0;
 }
 
 .syr-rates-table th {
-	background: #1e293b;
-	color: #ffffff;
-	padding: 14px 18px;
+	background: #f8fafc;
+	color: #475569;
+	padding: 16px 20px;
 	font-size: 15px;
 	font-weight: 700;
 	text-align: right;
+	border-bottom: 2px solid #e2e8f0;
 }
 
 .syr-rates-table td {
-	padding: 14px 18px;
+	padding: 16px 20px;
 	border-bottom: 1px solid #f1f5f9;
-	font-size: 14px;
-	color: #334155;
+	font-size: 15px;
+	color: #1e293b;
+	font-weight: 500;
+	vertical-align: middle;
 }
 
 .syr-rates-table tr:last-child td {
 	border-bottom: none;
 }
 
+.syr-rates-table tr:nth-child(even) td {
+	background-color: #fafafa;
+}
+
 .syr-rates-table tr:hover td {
-	background-color: #f8fafc;
+	background-color: #f1f5f9;
 }
 
 .syr-price-buy {
-	color: #16a34a;
-	font-weight: 700;
+	color: #16a34a !important;
+	font-weight: 800 !important;
+	font-size: 16px;
 }
 
 .syr-price-sell {
-	color: #dc2626;
-	font-weight: 700;
-}
-
-.syr-unit {
-	font-size: 11px;
-	color: #64748b;
-	font-weight: normal;
-	margin-right: 3px;
-}
-
-/* Card Style */
-.syr-cards-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 16px;
-}
-
-.syr-card-item {
-	background: #ffffff;
-	border-radius: 12px;
-	padding: 18px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-	border: 1px solid #e2e8f0;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.syr-card-item:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.syr-card-title {
+	color: #dc2626 !important;
+	font-weight: 800 !important;
 	font-size: 16px;
-	font-weight: bold;
-	color: #0f172a;
-	margin-bottom: 12px;
-	padding-bottom: 8px;
-	border-bottom: 2px solid #3b82f6;
-}
-
-.syr-card-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 8px;
-	font-size: 14px;
 }
 
 .syr-footer-note {
-	font-size: 12px;
+	background: #f8fafc;
+	border-top: 1px solid #e2e8f0;
+	padding: 12px 20px;
+	font-size: 13px;
 	color: #64748b;
-	margin-top: 10px;
-	text-align: left;
+	text-align: center;
+	font-weight: 500;
+}
+
+.syr-single-price {
+	font-weight: bold;
+	color: #0f172a;
+}
+
+/* Mobile Responsive Styling */
+@media (max-width: 640px) {
+	.syr-table-header {
+		padding: 16px;
+	}
+
+	.syr-table-title {
+		font-size: 17px;
+	}
+
+	.syr-rates-table th {
+		display: none; /* Hide header on mobile for card view transformation */
+	}
+
+	.syr-rates-table, .syr-rates-table tbody, .syr-rates-table tr, .syr-rates-table td {
+		display: block;
+		width: 100%;
+	}
+
+	.syr-rates-table tr {
+		margin-bottom: 12px;
+		border-bottom: 2px solid #e2e8f0;
+		padding: 10px 14px;
+		background: #ffffff;
+	}
+
+	.syr-rates-table tr:last-child {
+		margin-bottom: 0;
+	}
+
+	.syr-rates-table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 8px;
+		border-bottom: 1px dashed #f1f5f9;
+		text-align: left;
+		font-size: 14px;
+	}
+
+	.syr-rates-table td:last-child {
+		border-bottom: none;
+	}
+
+	.syr-rates-table td::before {
+		content: attr(data-label);
+		font-weight: 700;
+		color: #64748b;
+		margin-left: 10px;
+		text-align: right;
+	}
+
+	.syr-rates-table td[data-label="عنوان"] {
+		font-size: 15px;
+		color: #0f172a;
+		border-bottom: 2px solid #3b82f6;
+		padding-bottom: 8px;
+		margin-bottom: 6px;
+		background: #f8fafc;
+		border-radius: 6px;
+		padding-right: 10px;
+	}
+
+	.syr-rates-table td[data-label="عنوان"]::before {
+		display: none;
+	}
+
+	.syr-footer-note {
+		font-size: 12px;
+		padding: 10px 14px;
+	}
 }
