@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Product Description Auditor
  * Plugin URI: https://example.com/product-description-auditor
- * Description: بررسی و دسته‌بندی توضیحات بلند محصولات ووکامرس به‌صورت دسته‌ای (۳۰تایی) برای جلوگیری از فشار به سرور.
- * Version: 1.1.0
+ * Description: بررسی و دسته‌بندی توضیحات بلند محصولات ووکامرس به‌صورت دسته‌ای (۳۰تایی) با بهینه‌سازی حافظه و داتابیس.
+ * Version: 1.2.0
  * Author: Jules
  * Text Domain: product-description-auditor
  */
@@ -39,7 +39,19 @@ class Product_Description_Auditor {
     }
 
     /**
-     * Initialize audit session: retrieve total published products count and product IDs
+     * Helper to get clean normalized long description text from post_content
+     */
+    public static function get_clean_long_description($post_id) {
+        $post = get_post($post_id);
+        if (!$post) {
+            return '';
+        }
+        $clean = trim(wp_strip_all_tags($post->post_content));
+        return preg_replace('/\s+/u', ' ', $clean);
+    }
+
+    /**
+     * Initialize audit session: Index published products with lightweight metadata
      */
     public function ajax_init_audit() {
         check_ajax_referer('pda_audit_action', 'nonce');
@@ -48,41 +60,36 @@ class Product_Description_Auditor {
             wp_send_json_error(array('message' => 'عدم دسترسی کافی'));
         }
 
-        // Get all published product IDs and post_content
-        $args = array(
-            'post_type'      => 'product',
-            'post_status'    => 'publish',
-            'posts_per_page' => -1,
-            'fields'         => 'ids',
-            'orderby'        => 'ID',
-            'order'          => 'ASC',
-        );
+        // Increase memory limit and execution time temporarily for indexing
+        @ini_set('memory_limit', '512M');
+        @set_time_limit(300);
 
-        $product_ids = get_posts($args);
-        $total = count($product_ids);
+        global $wpdb;
+
+        // Query IDs, Titles, and post_content directly from DB to save memory
+        $query = "SELECT ID, post_title, post_content FROM {$wpdb->posts} WHERE post_type = 'product' AND post_status = 'publish' ORDER BY ID ASC";
+        $products = $wpdb->get_results($query);
+
+        $total = count($products);
 
         if ($total === 0) {
             wp_send_json_error(array('message' => 'هیچ محصول منتشرشده‌ای یافت نشد.'));
         }
 
-        // Cache pre-computed hashes and long descriptions for similarity comparison
-        $all_products_cache = array();
+        $lightweight_index = array();
         $hash_counts = array();
 
-        foreach ($product_ids as $id) {
-            $post = get_post($id);
-            // ONLY check long description (post_content)
-            $clean_content = trim(wp_strip_all_tags($post->post_content));
-            $clean_content_normalized = preg_replace('/\s+/u', ' ', $clean_content);
-            $length = mb_strlen($clean_content_normalized, 'UTF-8');
-            $md5 = md5($clean_content_normalized);
+        foreach ($products as $p) {
+            $id = (int)$p->ID;
+            $clean_text = trim(wp_strip_all_tags($p->post_content));
+            $clean_normalized = preg_replace('/\s+/u', ' ', $clean_text);
+            $length = mb_strlen($clean_normalized, 'UTF-8');
+            $md5 = md5($clean_normalized);
 
-            $all_products_cache[$id] = array(
+            // Store ONLY minimal required fields in transient (NO heavy full text strings)
+            $lightweight_index[$id] = array(
                 'id'        => $id,
-                'title'     => $post->post_title ? $post->post_title : ('#' . $id),
-                'edit_url'  => get_edit_post_link($id, ''),
-                'permalink' => get_permalink($id),
-                'text'      => $clean_content_normalized,
+                'title'     => $p->post_title ? $p->post_title : ('#' . $id),
                 'length'    => $length,
                 'md5'       => $md5,
             );
@@ -95,13 +102,16 @@ class Product_Description_Auditor {
             }
         }
 
-        $session_id = 'pda_session_' . get_current_user_id() . '_' . time();
+        // Free memory immediately
+        unset($products);
 
-        set_transient($session_id . '_products', $all_products_cache, 3600);
+        $session_id = 'pda_' . get_current_user_id() . '_' . time();
+
+        set_transient($session_id . '_index', $lightweight_index, 3600);
         set_transient($session_id . '_hashes', $hash_counts, 3600);
         set_transient($session_id . '_results', array(), 3600);
 
-        $total_batches = ceil($total / self::BATCH_SIZE);
+        $total_batches = (int) ceil($total / self::BATCH_SIZE);
 
         wp_send_json_success(array(
             'session_id'    => $session_id,
@@ -112,7 +122,7 @@ class Product_Description_Auditor {
     }
 
     /**
-     * Process a batch of 30 products
+     * Process a batch of 30 products on demand
      */
     public function ajax_process_batch() {
         check_ajax_referer('pda_audit_action', 'nonce');
@@ -121,18 +131,21 @@ class Product_Description_Auditor {
             wp_send_json_error(array('message' => 'عدم دسترسی کافی'));
         }
 
+        @ini_set('memory_limit', '512M');
+        @set_time_limit(180);
+
         $session_id = isset($_POST['session_id']) ? sanitize_text_field($_POST['session_id']) : '';
         $batch_index = isset($_POST['batch_index']) ? intval($_POST['batch_index']) : 0;
 
-        $all_products_cache = get_transient($session_id . '_products');
+        $lightweight_index = get_transient($session_id . '_index');
         $hash_counts = get_transient($session_id . '_hashes');
         $current_results = get_transient($session_id . '_results');
 
-        if (!$all_products_cache || !$hash_counts || $current_results === false) {
-            wp_send_json_error(array('message' => 'جلسه کاری منقضی شده است. لطفا دوباره بررسی را آغاز کنید.'));
+        if (!$lightweight_index || !$hash_counts || $current_results === false) {
+            wp_send_json_error(array('message' => 'جلسه کاری منقضی شده است یا اطلاعات در حافظه یافت نشد. لطفاً بررسی را از ابتدا آغاز کنید.'));
         }
 
-        $product_keys = array_keys($all_products_cache);
+        $product_keys = array_keys($lightweight_index);
         $total_items = count($product_keys);
         $offset = $batch_index * self::BATCH_SIZE;
 
@@ -140,25 +153,42 @@ class Product_Description_Auditor {
         $batch_results = array();
 
         foreach ($batch_keys as $id) {
-            $item = $all_products_cache[$id];
+            $item = $lightweight_index[$id];
             $is_copy_or_similar = false;
             $matched_detail = '';
 
-            // Priority 1: Copy / Similar
+            // Priority 1: Check Copy / Similar
             if ($item['length'] > 0) {
                 // Check exact MD5 hash match
                 if (isset($hash_counts[$item['md5']]) && $hash_counts[$item['md5']] > 1) {
                     $is_copy_or_similar = true;
                     $matched_detail = 'کپی دقیق';
                 } else {
-                    // Compare similarity percentage against all products
-                    foreach ($all_products_cache as $other_id => $other_item) {
-                        if ($id === $other_id || $other_item['length'] === 0) {
+                    // Fast candidate filtering for similarity test (>85%):
+                    // Only compare products whose text length is within +/- 15% range!
+                    $target_text = null;
+                    $min_len = (int) ($item['length'] * 0.85);
+                    $max_len = (int) ($item['length'] * 1.15);
+
+                    foreach ($lightweight_index as $other_id => $other_meta) {
+                        if ($id === $other_id || $other_meta['length'] === 0) {
                             continue;
                         }
 
+                        // Length filter optimization
+                        if ($other_meta['length'] < $min_len || $other_meta['length'] > $max_len) {
+                            continue;
+                        }
+
+                        // Fetch actual long description only when comparing candidate
+                        if ($target_text === null) {
+                            $target_text = self::get_clean_long_description($id);
+                        }
+
+                        $other_text = self::get_clean_long_description($other_id);
+
                         $percent = 0;
-                        similar_text($item['text'], $other_item['text'], $percent);
+                        similar_text($target_text, $other_text, $percent);
 
                         if ($percent > 85) {
                             $is_copy_or_similar = true;
@@ -179,11 +209,14 @@ class Product_Description_Auditor {
                 $status = 'سالم';
             }
 
+            $edit_url = get_edit_post_link($id, '');
+            $permalink = get_permalink($id);
+
             $res_item = array(
-                'id'        => $item['id'],
+                'id'        => $id,
                 'title'     => $item['title'],
-                'edit_url'  => $item['edit_url'],
-                'permalink' => $item['permalink'],
+                'edit_url'  => $edit_url ? $edit_url : '',
+                'permalink' => $permalink ? $permalink : '',
                 'status'    => $status,
             );
 
@@ -371,9 +404,8 @@ class Product_Description_Auditor {
                 progressContainer.style.display = 'block';
                 tbody.innerHTML = '';
                 accumulatedResults = [];
-                updateProgress(0, 'در حال آماده‌سازی و دریافت اطلاعات محصولات...');
+                updateProgress(0, 'در حال آماده‌سازی و ساخت فهرست سبک محصولات...');
 
-                // Initialize session
                 var formData = new FormData();
                 formData.append('action', 'pda_init_audit');
                 formData.append('nonce', nonce);
@@ -382,10 +414,15 @@ class Product_Description_Auditor {
                     method: 'POST',
                     body: formData
                 })
-                .then(function(res) { return res.json(); })
+                .then(function(res) {
+                    if (!res.ok) {
+                        throw new Error('پاسخ سرور با وضعیت ناموفق: ' + res.status);
+                    }
+                    return res.json();
+                })
                 .then(function(data) {
                     if (!data.success) {
-                        alert(data.data.message || 'خطا در برقراری ارتباط');
+                        alert(data.data && data.data.message ? data.data.message : 'خطا در برقراری ارتباط');
                         resetUI();
                         return;
                     }
@@ -399,7 +436,7 @@ class Product_Description_Auditor {
                     processNextBatch();
                 })
                 .catch(function(err) {
-                    alert('خطا در اجرای مرحله اول بررسی');
+                    alert('خطا در راه‌اندازی اولیه: ' + err.message);
                     resetUI();
                 });
             });
@@ -418,10 +455,15 @@ class Product_Description_Auditor {
                     method: 'POST',
                     body: formData
                 })
-                .then(function(res) { return res.json(); })
+                .then(function(res) {
+                    if (!res.ok) {
+                        throw new Error('پاسخ سرور با وضعیت ' + res.status + ' ناموفق بود.');
+                    }
+                    return res.json();
+                })
                 .then(function(data) {
                     if (!data.success) {
-                        alert(data.data.message || 'خطا در پردازش دسته');
+                        alert(data.data && data.data.message ? data.data.message : 'خطا در پردازش دسته');
                         resetUI();
                         return;
                     }
@@ -440,7 +482,7 @@ class Product_Description_Auditor {
                     }
                 })
                 .catch(function(err) {
-                    alert('خطا در بررسی دسته‌ای محصولات. لطفاً مجدداً امتحان کنید.');
+                    alert('خطا در بررسی دسته‌ای: ' + err.message);
                     resetUI();
                 });
             }
